@@ -118,4 +118,18 @@ document.addEventListener('DOMContentLoaded', () => {
         giveUpButton.disabled = false;
         guessInput.focus();
     }
+    const firebaseConfig = {
+      apiKey: "AIzaSyCoDjR058s-OkYYYPYXsbH_IrjgP8ZH1Qc",
+      authDomain: "game-fd471.firebaseapp.com",
+      databaseURL: "https://game-fd471-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "game-fd471",
+      storageBucket: "game-fd471.firebasestorage.app",
+      messagingSenderId: "829125391460",
+      appId: "1:829125391460:web:52418f8d5b2dc8938fdb71"
+    };
+
+    
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
 });
