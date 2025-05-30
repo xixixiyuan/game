@@ -121,59 +121,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-<script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCoDjR058s-OkYYYPYXsbH_IrjgP8ZH1Qc",
-      authDomain: "game-fd471.firebaseapp.com",
-      databaseURL: "https://game-fd471-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "game-fd471",
-      storageBucket: "game-fd471.firebasestorage.app",
-      messagingSenderId: "829125391460",
-      appId: "1:829125391460:web:52418f8d5b2dc8938fdb71"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyCoDjR058s-OkYYYPYXsbH_IrjgP8ZH1Qc",
+  authDomain: "game-fd471.firebaseapp.com",
+  databaseURL: "https://game-fd471-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "game-fd471",
+  storageBucket: "game-fd471.firebasestorage.app",
+  messagingSenderId: "829125391460",
+  appId: "1:829125391460:web:52418f8d5b2dc8938fdb71"
+};
 
-    
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-    let player = "";
+// 玩家名稱
+let player = "";
 
-    function startGame() {
-      const nameInput = document.getElementById("playerName").value.trim();
-      if (!nameInput) {
-        alert("請輸入名字！");
-        return;
-      }
-      player = nameInput;
-      document.getElementById("displayName").innerText = player;
-      document.getElementById("startScreen").style.display = "none";
-      document.getElementById("gameScreen").style.display = "block";
-    }
+function startGame() {
+  const nameInput = document.getElementById("playerName").value.trim();
+  if (!nameInput) return alert("請輸入玩家名稱");
+  player = nameInput;
+  document.getElementById("displayName").innerText = player;
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+  // 初始化遊戲邏輯（保留你原本的 initGame()）
+}
 
-    function recordScore(attempts) {
-      const scoreData = {
-        name: player,
-        attempts: attempts,
-        timestamp: Date.now()
-      };
-      db.ref('leaderboard').push(scoreData);
-    }
+function recordScore(attempts) {
+  db.ref("leaderboard").push({
+    name: player,
+    attempts: attempts,
+    timestamp: Date.now()
+  });
+}
 
-    function loadLeaderboard() {
-      const list = document.getElementById("leaderboardList");
-      list.innerHTML = "載入中...";
-      db.ref('leaderboard')
-        .orderByChild('attempts')
-        .limitToFirst(10)
-        .once('value')
-        .then(snapshot => {
-          list.innerHTML = "";
-          snapshot.forEach(child => {
-            const data = child.val();
-            const li = document.createElement("li");
-            li.textContent = `${data.name} - ${data.attempts} 次`;
-            list.appendChild(li);
-          });
-        });
-    }
-</script>
+function loadLeaderboard() {
+  const list = document.getElementById("leaderboardList");
+  list.innerHTML = "載入中...";
+  db.ref("leaderboard").orderByChild("attempts").limitToFirst(10).once("value", snapshot => {
+    list.innerHTML = "";
+    snapshot.forEach(child => {
+      const data = child.val();
+      const li = document.createElement("li");
+      li.textContent = `${data.name}：${data.attempts} 次`;
+      list.appendChild(li);
+    });
+  });
+}
