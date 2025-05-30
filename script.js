@@ -174,3 +174,38 @@ function loadLeaderboard() {
     });
   });
 }
+
+function showLeaderboard() {
+  const modal = document.getElementById("leaderboardModal");
+  const tbody = document.getElementById("leaderboardTableBody");
+  tbody.innerHTML = "<tr><td colspan='4'>載入中...</td></tr>";
+  modal.style.display = "block";
+
+  db.ref('leaderboard')
+    .orderByChild('attempts')
+    .limitToFirst(10)
+    .once('value', snapshot => {
+      tbody.innerHTML = "";
+      let rank = 1;
+      snapshot.forEach(child => {
+        const data = child.val();
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${rank++}</td>
+          <td>${data.name}</td>
+          <td>${data.attempts}</td>
+          <td>${new Date(data.timestamp).toLocaleString()}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      if (rank === 1) {
+        tbody.innerHTML = "<tr><td colspan='4'>目前沒有資料</td></tr>";
+      }
+    });
+}
+
+function hideLeaderboard() {
+  document.getElementById("leaderboardModal").style.display = "none";
+}
+
