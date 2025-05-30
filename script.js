@@ -132,4 +132,19 @@ document.addEventListener('DOMContentLoaded', () => {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
+    let player = "";
+
+function startGame() {
+  const nameInput = document.getElementById("playerName").value.trim();
+  if (!nameInput) {
+    alert("請輸入名字！");
+    return;
+  }
+  player = nameInput;
+  document.getElementById("displayName").innerText = player;
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+}
+
+
 });
