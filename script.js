@@ -134,27 +134,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let player = "";
 
-function startGame() {
-  const nameInput = document.getElementById("playerName").value.trim();
-  if (!nameInput) {
-    alert("請輸入名字！");
-    return;
-  }
-  player = nameInput;
-  document.getElementById("displayName").innerText = player;
-  document.getElementById("startScreen").style.display = "none";
-  document.getElementById("gameScreen").style.display = "block";
-}
+    function startGame() {
+      const nameInput = document.getElementById("playerName").value.trim();
+      if (!nameInput) {
+        alert("請輸入名字！");
+        return;
+      }
+      player = nameInput;
+      document.getElementById("displayName").innerText = player;
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("gameScreen").style.display = "block";
+    }
 
     function recordScore(attempts) {
-  const scoreData = {
-    name: player,
-    attempts: attempts,
-    timestamp: Date.now()
-  };
-  db.ref('leaderboard').push(scoreData);
-}
+      const scoreData = {
+        name: player,
+        attempts: attempts,
+        timestamp: Date.now()
+      };
+      db.ref('leaderboard').push(scoreData);
+    }
 
-
+    function loadLeaderboard() {
+      const list = document.getElementById("leaderboardList");
+      list.innerHTML = "載入中...";
+      db.ref('leaderboard')
+        .orderByChild('attempts')
+        .limitToFirst(10)
+        .once('value')
+        .then(snapshot => {
+          list.innerHTML = "";
+          snapshot.forEach(child => {
+            const data = child.val();
+            const li = document.createElement("li");
+            li.textContent = `${data.name} - ${data.attempts} 次`;
+            list.appendChild(li);
+          });
+        });
+    }
 
 });
