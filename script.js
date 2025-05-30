@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
         giveUpButton.disabled = false;
         guessInput.focus();
     }
+});
+
+<script>
     const firebaseConfig = {
       apiKey: "AIzaSyCoDjR058s-OkYYYPYXsbH_IrjgP8ZH1Qc",
       authDomain: "game-fd471.firebaseapp.com",
@@ -173,5 +176,4 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         });
     }
-
-});
+</script>
