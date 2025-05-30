@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (a === 4) {
             alert(`恭喜你猜對了！答案是 ${secretNumber.join('')}，總共猜了 ${guessCount} 次。`);
-            recordScore(currentAttemptCount);
+            recordScore(guessCount);
             showAnswerAndRestart();
             disableGame();
         }
