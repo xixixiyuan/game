@@ -146,5 +146,15 @@ function startGame() {
   document.getElementById("gameScreen").style.display = "block";
 }
 
+    function recordScore(attempts) {
+  const scoreData = {
+    name: player,
+    attempts: attempts,
+    timestamp: Date.now()
+  };
+  db.ref('leaderboard').push(scoreData);
+}
+
+
 
 });
