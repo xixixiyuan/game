@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const guessButton = document.getElementById('guessButton');
     const giveUpButton = document.getElementById('giveUpButton');
     const restartButton = document.getElementById('restartButton');
+    const answerButton = document.getElementById('answerButton');
     const resultDisplay = document.getElementById('result');
     const answerDisplay = document.getElementById('answer');
     const answerSpan = document.getElementById('answer').querySelector('span');
@@ -84,6 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
         answerDisplay.style.display = 'block';
         showRestartButton();
         disableGame();
+    });
+
+    answerButton.addEventListener('click', () => {
+       alert(`答案是 ${secretNumber.join('')}`);
     });
 
     restartButton.addEventListener('click', () => {
