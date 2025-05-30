@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     answerButton.addEventListener('click', () => {
-       alert(`答案是 ${secretNumber.join('')}`);
+        answerSpan.textContent = secretNumber.join('');
+        answerDisplay.style.display = 'block';
     });
 
     restartButton.addEventListener('click', () => {
