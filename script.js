@@ -1,3 +1,4 @@
+let guessCount = 0;
 document.addEventListener('DOMContentLoaded', () => {
     const guessInput = document.getElementById('guessInput');
     const guessButton = document.getElementById('guessButton');
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerSpan = document.getElementById('answer').querySelector('span');
 
     let secretNumber = generateSecretNumber();
-    let guessCount = 0;
     let guessHistory = []; // 用來儲存猜測歷史
 
     function generateSecretNumber() {
